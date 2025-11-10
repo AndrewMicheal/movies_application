@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/features/auth/presentation/screens/login.dart';
 import 'package:movies/features/on_boarding_screen/prestentation/screen/on_boarding_screen.dart';
 import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
@@ -22,11 +23,12 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: "Movies",
           debugShowCheckedModeBanner: false,
-          locale: const Locale("ar"),
+          locale: const Locale("en"),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
            routes: {
             AppRoutes.onBoardingScreen: (context) => const OnBoardingScreen(),
+            AppRoutes.loginScreen: (context) => const LoginScreen(),
           },
           initialRoute: AppRoutes.onBoardingScreen ,
           builder: (context, widget) {
