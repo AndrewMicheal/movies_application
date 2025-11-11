@@ -54,11 +54,9 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
+
                       children: [
-                        Text('Action',
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 24)),
                         const Text('See More →',
                             style: TextStyle(color: Colors.yellow , fontSize: 24)),
                       ],
