@@ -105,7 +105,7 @@ class PageViewItemWidget extends StatelessWidget {
                         if (index == (OnBoardingData.getOnBoardingList(context).length - 1))
                           CustomElevatedButtom(
                             onPressed: () {
-                               Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                               Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
                             },
                             text: AppLocalizations.of(context)!.finish,
                             textStyle: AppStyles.semiBold20NearBlack,

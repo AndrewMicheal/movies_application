@@ -31,7 +31,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'اكتشف أفلامًا من جميع الأنواع، وبجميع الجودات المتاحة. ابحث عن شيء جديد ومثير لمشاهدته كل يوم.';
 
   @override
-  String get create_Watchlists => 'إنشاء قوائم المراقبة';
+  String get create_Watchlists => 'إنشاء قوائم المشاهدة';
 
   @override
   String get save_movies_to_your_watchlist_to_keep =>
@@ -42,7 +42,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get share_your_thoughts_on_the_movies =>
-      'شاركنا أفكارك حول الأفلام التي شاهدتها. تعمق في تفاصيل الأفلام وساعد الآخرين على اكتشاف أفلام رائعة من خلال مراجعاتك.';
+      'شارك أفكارك حول الأفلام التي شاهدتها. تعمق في التفاصيل وساعد الآخرين على اكتشاف أفلام رائعة من خلال مراجعاتك.';
 
   @override
   String get start_Watching_now => 'ابدأ المشاهدة الآن';
@@ -51,16 +51,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get back => 'رجوع';
 
   @override
-  String get finish => 'انتهى';
+  String get finish => 'إنهاء';
 
   @override
   String get explore_now => 'استكشف الآن';
 
   @override
-  String get next => 'التالى';
+  String get next => 'التالي';
 
   @override
-  String get email => 'ايميل';
+  String get email => 'البريد الإلكتروني';
 
   @override
   String get password => 'كلمة السر';
@@ -72,14 +72,35 @@ class AppLocalizationsAr extends AppLocalizations {
   String get forget_password => 'نسيت كلمة السر';
 
   @override
-  String get dont_have_account => 'ليس لدي حساب';
+  String get dont_have_account => 'ليس لديك حساب؟';
 
   @override
-  String get create_one => 'إنشاء واحد';
+  String get create_one => 'إنشاء حساب';
 
   @override
   String get or => 'أو';
 
   @override
   String get login_with_google => 'تسجيل الدخول باستخدام جوجل';
+
+  @override
+  String get register => 'إنشاء حساب';
+
+  @override
+  String get avatar => 'الصورة الرمزية';
+
+  @override
+  String get name => 'الاسم';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get phoneNumber => 'رقم الهاتف';
+
+  @override
+  String get createAccount => 'إنشاء حساب';
+
+  @override
+  String get alreadyHaveAccount => 'لديك حساب بالفعل؟';
 }

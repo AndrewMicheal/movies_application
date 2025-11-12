@@ -82,4 +82,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login_with_google => 'Login With Google';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get avatar => 'Avatar';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
 }

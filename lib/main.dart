@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/features/auth/presentation/screens/login.dart';
+import 'package:movies/features/auth/presentation/screens/register.dart';
 import 'package:movies/features/movies/domain/usecases/get_movies.dart';
 import 'package:movies/features/movies/presentation/pages/browse_page.dart';
 import 'package:movies/features/movies/presentation/pages/home_page.dart';
@@ -61,8 +62,9 @@ class MyApp extends StatelessWidget {
             AppRoutes.searchScreen: (context) => const SearchPage(),
             AppRoutes.browseScreen: (context) => const BrowsePage(),
             AppRoutes.profileScreen: (context) => const ProfilePage(),
+            AppRoutes.registerScreen: (context) => const RegisterScreen(),
           },
-          initialRoute: AppRoutes.onBoardingScreen,
+          initialRoute: AppRoutes.registerScreen,
           builder: (context, widget) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(
