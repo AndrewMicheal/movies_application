@@ -13,7 +13,7 @@ import 'package:movies/features/on_boarding_screen/prestentation/screen/on_board
 import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
 
-import 'features/movies/data/data_sources/movie_remote_data_sources.dart';
+import 'features/movies/data/data_sources/movies_remote_data_sources.dart';
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
 import 'features/movies/presentation/cubit/movie_cubit.dart';
 
