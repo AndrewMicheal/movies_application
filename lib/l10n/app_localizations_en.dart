@@ -82,4 +82,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login_with_google => 'Login With Google';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get avatar => 'Avatar';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get name_required => 'Name is required';
+
+  @override
+  String get name_short => 'Name must be at least 3 characters';
+
+  @override
+  String get email_required => 'Email is required';
+
+  @override
+  String get email_invalid => 'Invalid email address';
+
+  @override
+  String get password_required => 'Password is required';
+
+  @override
+  String get password_short => 'Password must be at least 8 characters';
+
+  @override
+  String get password_weak =>
+      'Password must contain uppercase, lowercase, number, and symbol';
+
+  @override
+  String get confirm_required => 'Confirm password is required';
+
+  @override
+  String get confirm_not_match => 'Passwords do not match';
+
+  @override
+  String get phone_required => 'Phone number is required';
+
+  @override
+  String get phone_invalid => 'Invalid phone number';
+
+  @override
+  String get register_success => 'Account created successfully';
+
+  @override
+  String get user_exists => 'User already exists';
+
+  @override
+  String get weak_password => 'Password is too weak';
+
+  @override
+  String get something_wrong => 'Something went wrong';
 }

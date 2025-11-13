@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/core/app_colors.dart';
 
 class CustomElevatedButtom extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   String text;
   Color? backgroundColor;
   Color borderColor;
@@ -25,7 +25,7 @@ class CustomElevatedButtom extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return ElevatedButton(
       onPressed: () {
-        onPressed();
+        onPressed!();
     }, child: hasIcon? childIconWidget
    :  Text(text?? '',style: textStyle) ,
 
