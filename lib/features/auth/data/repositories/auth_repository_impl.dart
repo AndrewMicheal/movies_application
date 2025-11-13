@@ -1,6 +1,6 @@
-import '../../data/models/register_response_model.dart';
-import '../data_sources/auth_remote_data_source.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../data_sources/auth_remote_data_source.dart';
+import '../models/register_response_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remote;
@@ -16,20 +16,15 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phone,
     required int avatarId,
   }) async {
-    try {
-      return await remote.register(
-        name: name,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-        phone: phone,
-        avatarId: avatarId,
-      );
-    } catch (e) {
-      return RegisterResponseModel(
-        message: e.toString(),
-        statusCode: 500,
-      );
-    }
+    final res = await remote.register(
+      name: name,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      phone: phone,
+      avatarId: avatarId,
+    );
+
+    return res;
   }
 }
