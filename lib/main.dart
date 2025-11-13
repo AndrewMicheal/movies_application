@@ -18,9 +18,13 @@ import 'features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/register_usecase.dart';
 import 'features/auth/presentation/cubit/register_cubit.dart';
+
 import 'features/movies/data/data_sources/movie_remote_data_sources.dart';
+import 'features/movies/data/data_sources/movies_remote_data_sources.dart';
+
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
 import 'features/movies/presentation/cubit/movie_cubit.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,4 +1,4 @@
-import '../../data/data_sources/movie_remote_data_sources.dart';
+import '../../data/data_sources/movies_remote_data_sources.dart';
 import '../../domain/entities/movie.dart';
 import '../../domain/repositories/movie_repository.dart';
 
