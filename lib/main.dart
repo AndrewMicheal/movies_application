@@ -14,33 +14,52 @@ import 'package:movies/features/on_boarding_screen/prestentation/screen/on_board
 import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
 
+import 'features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/usecases/register_usecase.dart';
+import 'features/auth/presentation/cubit/register_cubit.dart';
 import 'features/movies/data/data_sources/movie_remote_data_sources.dart';
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
 import 'features/movies/presentation/cubit/movie_cubit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  final dio = Dio();
+
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => MovieCubit(
-          GetMovies(
-            MovieRepositoryImpl(
-              MovieRemoteDataSourceImpl(
-                Dio(),
+        BlocProvider(
+          create: (_) => MovieCubit(
+            GetMovies(
+              MovieRepositoryImpl(
+                MovieRemoteDataSourceImpl(dio),
               ),
             ),
           ),
-        )),
+        ),
+
+        BlocProvider(
+          create: (_) => RegisterCubit(
+            RegisterUseCase(
+              AuthRepositoryImpl(
+                AuthRemoteDataSource(dio),
+              ),
+            ),
+          ),
+        ),
       ],
-      child: MyApp(),
+      child:  MyApp(),
     ),
   );
 }
 
 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(
         430,

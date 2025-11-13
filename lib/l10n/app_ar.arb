@@ -1,4 +1,6 @@
 {
+  "@@locale": "ar",
+
   "find_your_next_favorite_movie_here": "ابحث عن فيلمك المفضل القادم هنا",
   "get_access_to_a_huge": "استمتع بمكتبة ضخمة من الأفلام تناسب جميع الأذواق. ستحبها بالتأكيد.",
   "discover_movies": "اكتشف الأفلام",
@@ -14,6 +16,7 @@
   "finish": "إنهاء",
   "explore_now": "استكشف الآن",
   "next": "التالي",
+
   "email": "البريد الإلكتروني",
   "password": "كلمة السر",
   "login": "تسجيل الدخول",
@@ -29,5 +32,27 @@
   "confirmPassword": "تأكيد كلمة المرور",
   "phoneNumber": "رقم الهاتف",
   "createAccount": "إنشاء حساب",
-  "alreadyHaveAccount": "لديك حساب بالفعل؟"
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+
+
+  "name_required": "الاسم مطلوب",
+  "name_short": "الاسم يجب أن يكون 3 أحرف على الأقل",
+
+  "email_required": "البريد الإلكتروني مطلوب",
+  "email_invalid": "البريد الإلكتروني غير صحيح",
+
+  "password_required": "كلمة السر مطلوبة",
+  "password_short": "كلمة السر يجب أن تكون 8 أحرف على الأقل",
+  "password_weak": "كلمة السر يجب أن تحتوي على حرف كبير وصغير ورقم ورمز",
+
+  "confirm_required": "تأكيد كلمة السر مطلوب",
+  "confirm_not_match": "كلمتا السر غير متطابقتين",
+
+  "phone_required": "رقم الهاتف مطلوب",
+  "phone_invalid": "رقم الهاتف غير صحيح",
+
+  "register_success": "تم إنشاء الحساب بنجاح",
+  "user_exists": "المستخدم موجود بالفعل",
+  "weak_password": "كلمة السر ضعيفة",
+  "something_wrong": "حدث خطأ ما"
 }

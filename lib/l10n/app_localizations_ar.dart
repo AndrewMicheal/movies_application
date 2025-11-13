@@ -103,4 +103,50 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get alreadyHaveAccount => 'لديك حساب بالفعل؟';
+
+  @override
+  String get name_required => 'الاسم مطلوب';
+
+  @override
+  String get name_short => 'الاسم يجب أن يكون 3 أحرف على الأقل';
+
+  @override
+  String get email_required => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get email_invalid => 'البريد الإلكتروني غير صحيح';
+
+  @override
+  String get password_required => 'كلمة السر مطلوبة';
+
+  @override
+  String get password_short => 'كلمة السر يجب أن تكون 8 أحرف على الأقل';
+
+  @override
+  String get password_weak =>
+      'كلمة السر يجب أن تحتوي على حرف كبير وصغير ورقم ورمز';
+
+  @override
+  String get confirm_required => 'تأكيد كلمة السر مطلوب';
+
+  @override
+  String get confirm_not_match => 'كلمتا السر غير متطابقتين';
+
+  @override
+  String get phone_required => 'رقم الهاتف مطلوب';
+
+  @override
+  String get phone_invalid => 'رقم الهاتف غير صحيح';
+
+  @override
+  String get register_success => 'تم إنشاء الحساب بنجاح';
+
+  @override
+  String get user_exists => 'المستخدم موجود بالفعل';
+
+  @override
+  String get weak_password => 'كلمة السر ضعيفة';
+
+  @override
+  String get something_wrong => 'حدث خطأ ما';
 }
