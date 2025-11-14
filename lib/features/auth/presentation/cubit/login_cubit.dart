@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState>{
       ifLeft: (errMsg) => emit(LoginErrorState(errorMessage: errMsg.message)),
       ifRight: (success) async {
         print("TOKEN: ${success.data}");
-        await prefs.setString('token', success.data ?? "");
+        await prefs.setString('token', success.data!);
         emit(LoginSuccessState(success, success.message));
       },
     );
