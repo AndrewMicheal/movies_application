@@ -1,3 +1,9 @@
+import 'package:dart_either/src/dart_either.dart';
+
+import 'package:movies/core/failure.dart';
+
+import 'package:movies/features/auth/domain/entities/login.dart';
+
 import '../../data/models/register_response_model.dart';
 import '../data_sources/auth_remote_data_source.dart';
 import '../../domain/repositories/auth_repository.dart';
