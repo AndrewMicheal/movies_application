@@ -1,3 +1,8 @@
+
+import 'package:dart_either/dart_either.dart';
+import 'package:movies/core/failure.dart';
+import 'package:movies/features/auth/domain/entities/login.dart';
+
 import '../../data/models/register_response_model.dart';
 
 abstract class AuthRepository {
@@ -9,4 +14,5 @@ abstract class AuthRepository {
     required String phone,
     required int avatarId,
   });
+
 }

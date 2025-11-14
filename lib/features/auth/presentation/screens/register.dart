@@ -25,11 +25,11 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmController = TextEditingController();
-  final phoneController = TextEditingController();
+  final nameController = TextEditingController(text: "Andrew");
+  final emailController = TextEditingController(text: "andrew1@test.com");
+  final passwordController = TextEditingController(text : "Aaa090!@");
+  final confirmController = TextEditingController(text: "Aaa090!@");
+  final phoneController = TextEditingController(text: "201141209334");
 
   int selectedAvatarIndex = 0;
 

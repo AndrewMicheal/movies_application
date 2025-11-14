@@ -48,10 +48,15 @@ dependencies:
   cached_network_image: ^3.4.1
   equatable: ^2.0.7
   dart_either: ^2.0.0
+  pretty_dio_logger: ^1.4.0
+  injectable: ^2.6.0
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator:
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
