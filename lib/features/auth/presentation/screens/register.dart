@@ -198,7 +198,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     SizedBox(height: size.height * 0.02),
 
-                    /// ------------------- Already Have Account -------------------
                     TextButton(
                       onPressed: () => Navigator.pushNamed(context, AppRoutes.loginScreen),
                       child: Row(
@@ -211,7 +210,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
 
-                    /// ------------------- Language Switch -------------------
                     SlidingSwitch(
                       firstImage: Image.asset(AssetsManager.americaIcon),
                       secondImage: Image.asset(AssetsManager.egyptIcon),
