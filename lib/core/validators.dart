@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'translation_extension.dart';
 
-class Validators {
+class RegisterValidators {
   static String? validateName(BuildContext context, String? value) {
     if (value == null || value.trim().isEmpty) {
       return context.tr("name_required");
@@ -68,6 +68,44 @@ class Validators {
 
     if (!regex.hasMatch(value.trim())) {
       return context.tr("phone_invalid");
+    }
+
+    return null;
+  }
+}
+
+class ResetValidators {
+  static String? validateOldPassword(BuildContext context, String value) {
+    if (value.isEmpty) {
+      return context.tr("password_required");
+    }
+    if (value.length < 8) {
+      return context.tr("password_short");
+    }
+    return null;
+  }
+
+  static String? validateNewPassword(
+      BuildContext context, String oldPass, String newPass) {
+    if (newPass.isEmpty) {
+      return context.tr("password_required");
+    }
+
+    if (newPass.length < 8) {
+      return context.tr("password_short");
+    }
+
+    final hasUpper = newPass.contains(RegExp(r'[A-Z]'));
+    final hasLower = newPass.contains(RegExp(r'[a-z]'));
+    final hasNumber = newPass.contains(RegExp(r'[0-9]'));
+    final hasSymbol = newPass.contains(RegExp(r'[!@#\$&*~,.?%^_-]'));
+
+    if (!hasUpper || !hasLower || !hasNumber || !hasSymbol) {
+      return context.tr("password_weak");
+    }
+
+    if (newPass == oldPass) {
+      return context.tr("password_same");
     }
 
     return null;

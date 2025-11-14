@@ -317,7 +317,7 @@ abstract class AppLocalizations {
   /// No description provided for @password_weak.
   ///
   /// In en, this message translates to:
-  /// **'Password must contain uppercase, lowercase, number, and symbol'**
+  /// **'Password must contain uppercase, lowercase, number and symbol'**
   String get password_weak;
 
   /// No description provided for @confirm_required.
@@ -367,6 +367,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong'**
   String get something_wrong;
+
+  /// No description provided for @oldPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Old Password'**
+  String get oldPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @password_same.
+  ///
+  /// In en, this message translates to:
+  /// **'New password must be different from old password'**
+  String get password_same;
+
+  /// No description provided for @reset_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated successfully'**
+  String get reset_success;
+
+  /// No description provided for @reset_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update password'**
+  String get reset_failed;
 }
 
 class _AppLocalizationsDelegate

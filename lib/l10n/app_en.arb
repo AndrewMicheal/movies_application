@@ -49,5 +49,15 @@
   "register_success": "Account created successfully",
   "user_exists": "User already exists",
   "weak_password": "Password is too weak",
-  "something_wrong": "Something went wrong"
+  "something_wrong": "Something went wrong",
+  "oldPassword": "Old Password",
+  "newPassword": "New Password",
+  "resetPassword": "Reset Password",
+  "password_required": "Password is required",
+  "password_short": "Password must be at least 8 characters",
+  "password_weak": "Password must contain uppercase, lowercase, number and symbol",
+  "password_same": "New password must be different from old password",
+  "reset_success": "Password updated successfully",
+  "reset_failed": "Could not update password"
+
 }

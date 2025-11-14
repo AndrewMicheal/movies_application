@@ -117,14 +117,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get email_invalid => 'البريد الإلكتروني غير صحيح';
 
   @override
-  String get password_required => 'كلمة السر مطلوبة';
+  String get password_required => 'كلمة المرور مطلوبة';
 
   @override
-  String get password_short => 'كلمة السر يجب أن تكون 8 أحرف على الأقل';
+  String get password_short => 'كلمة المرور يجب أن تكون ٨ أحرف على الأقل';
 
   @override
   String get password_weak =>
-      'كلمة السر يجب أن تحتوي على حرف كبير وصغير ورقم ورمز';
+      'يجب أن تحتوي كلمة المرور على حرف كبير وصغير ورقم ورمز';
 
   @override
   String get confirm_required => 'تأكيد كلمة السر مطلوب';
@@ -149,4 +149,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get something_wrong => 'حدث خطأ ما';
+
+  @override
+  String get oldPassword => 'كلمة المرور القديمة';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get resetPassword => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get password_same =>
+      'يجب أن تكون كلمة المرور الجديدة مختلفة عن القديمة';
+
+  @override
+  String get reset_success => 'تم تغيير كلمة المرور بنجاح';
+
+  @override
+  String get reset_failed => 'تعذّر تغيير كلمة المرور';
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/features/auth/presentation/screens/forget_password.dart';
 import 'package:movies/features/auth/presentation/screens/login.dart';
 import 'package:movies/features/auth/presentation/screens/register.dart';
 import 'package:movies/features/movies/domain/usecases/get_movies.dart';
@@ -15,11 +16,14 @@ import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
 
 import 'features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'features/auth/data/data_sources/reset_password_remote_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/data/repositories/reset_password_repository_impl.dart';
 import 'features/auth/domain/usecases/register_usecase.dart';
-import 'features/auth/presentation/cubit/register_cubit.dart';
+import 'features/auth/domain/usecases/reset_password_usecase.dart';
+import 'features/auth/presentation/cubit/registerScreen/register_cubit.dart';
 
-import 'features/movies/data/data_sources/movie_remote_data_sources.dart';
+import 'features/auth/presentation/cubit/reset_password/reset_password_cubit.dart';
 import 'features/movies/data/data_sources/movies_remote_data_sources.dart';
 
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
@@ -52,6 +56,16 @@ void main() {
             ),
           ),
         ),
+        BlocProvider(
+          create: (_) => ResetPasswordCubit(
+            ResetPasswordUseCase(
+              ResetPasswordRepositoryImpl(
+                ResetPasswordRemoteDataSource(Dio()),
+              ),
+            ),
+          ),
+        ),
+
       ],
       child:  MyApp(),
     ),
@@ -86,8 +100,9 @@ class MyApp extends StatelessWidget {
             AppRoutes.browseScreen: (context) => const BrowsePage(),
             AppRoutes.profileScreen: (context) => const ProfilePage(),
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
+            AppRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
           },
-          initialRoute: AppRoutes.registerScreen,
+          initialRoute: AppRoutes.forgetPassword,
           builder: (context, widget) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(

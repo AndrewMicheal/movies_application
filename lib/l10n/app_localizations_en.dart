@@ -124,7 +124,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get password_weak =>
-      'Password must contain uppercase, lowercase, number, and symbol';
+      'Password must contain uppercase, lowercase, number and symbol';
 
   @override
   String get confirm_required => 'Confirm password is required';
@@ -149,4 +149,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get something_wrong => 'Something went wrong';
+
+  @override
+  String get oldPassword => 'Old Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get password_same =>
+      'New password must be different from old password';
+
+  @override
+  String get reset_success => 'Password updated successfully';
+
+  @override
+  String get reset_failed => 'Could not update password';
 }

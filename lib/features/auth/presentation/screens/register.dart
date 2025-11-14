@@ -12,8 +12,8 @@ import '../../../../core/assets_manager.dart';
 import '../../../../core/translation_extension.dart';
 import '../../../../core/validators.dart';
 
-import '../cubit/register_cubit.dart';
-import '../cubit/register_state.dart';
+import '../cubit/registerScreen/register_cubit.dart';
+import '../cubit/registerScreen/register_state.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -133,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: nameController,
                       hintText: context.tr("name"),
                       prefixIcon: Image.asset(AssetsManager.iconIdentification),
-                      validator: (v) => Validators.validateName(context, v ?? ""),
+                      validator: (v) => RegisterValidators.validateName(context, v ?? ""),
                     ),
                     SizedBox(height: size.height * 0.02),
 
@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: emailController,
                       hintText: context.tr("email"),
                       prefixIcon: Icon(Icons.email, color: AppColors.whiteColor, size: 35),
-                      validator: (v) => Validators.validateEmail(context, v ?? ""),
+                      validator: (v) => RegisterValidators.validateEmail(context, v ?? ""),
                     ),
                     SizedBox(height: size.height * 0.02),
 
@@ -150,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: context.tr("password"),
                       prefixIcon: Image.asset(AssetsManager.iconPassword),
                       suffixIcon: Icon(Icons.visibility_off, color: AppColors.whiteColor),
-                      validator: (v) => Validators.validatePassword(context, v ?? ""),
+                      validator: (v) => RegisterValidators.validatePassword(context, v ?? ""),
                     ),
                     SizedBox(height: size.height * 0.02),
 
@@ -159,7 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: context.tr("confirmPassword"),
                       prefixIcon: Image.asset(AssetsManager.iconPassword),
                       suffixIcon: Icon(Icons.visibility_off, color: AppColors.whiteColor),
-                      validator: (v) => Validators.validateConfirmPassword(
+                      validator: (v) => RegisterValidators.validateConfirmPassword(
                         context,
                         passwordController.text,
                         v ?? "",
@@ -171,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: phoneController,
                       hintText: context.tr("phoneNumber"),
                       prefixIcon: Image.asset(AssetsManager.iconPhone),
-                      validator: (v) => Validators.validatePhone(context, v ?? ""),
+                      validator: (v) => RegisterValidators.validatePhone(context, v ?? ""),
                     ),
                     SizedBox(height: size.height * 0.02),
                     SizedBox(
