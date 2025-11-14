@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movies/features/auth/domain/usecases/login_use_case.dart';
-import 'package:movies/features/auth/presentation/cubit/login_state.dart';
+import 'package:movies/features/auth/presentation/cubit/loginScreen/login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState>{

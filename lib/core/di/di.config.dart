@@ -19,7 +19,7 @@ import '../../features/auth/data/data_sources/login_remote_data_source_impl.dart
 import '../../features/auth/data/repositories/login_repo_impl.dart' as _i886;
 import '../../features/auth/domain/repositories/login_repo.dart' as _i502;
 import '../../features/auth/domain/usecases/login_use_case.dart' as _i37;
-import '../../features/auth/presentation/cubit/login_cubit.dart' as _i69;
+import '../../features/auth/presentation/cubit/loginScreen/login_cubit.dart' as _i69;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt

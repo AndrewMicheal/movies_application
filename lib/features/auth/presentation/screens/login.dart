@@ -11,8 +11,8 @@ import 'package:movies/core/assets_manager.dart';
 import 'package:movies/core/di/di.dart';
 import 'package:movies/core/translation_extension.dart';
 import 'package:movies/core/validators.dart';
-import 'package:movies/features/auth/presentation/cubit/login_cubit.dart';
-import 'package:movies/features/auth/presentation/cubit/login_state.dart';
+import 'package:movies/features/auth/presentation/cubit/loginScreen/login_cubit.dart';
+import 'package:movies/features/auth/presentation/cubit/loginScreen/login_state.dart';
 import 'package:movies/l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {

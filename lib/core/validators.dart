@@ -111,3 +111,40 @@ class ResetValidators {
     return null;
   }
 }
+
+class Validators {
+  static String? validateEmail(BuildContext context, String value) {
+    if (value.trim().isEmpty) {
+      return context.tr("email_required");
+    }
+
+    final emailRegex =
+    RegExp(r"^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$");
+
+    if (!emailRegex.hasMatch(value.trim())) {
+      return context.tr("email_invalid");
+    }
+
+    return null;
+  }
+
+  static String? validatePassword(BuildContext context, String value) {
+    if (value.isEmpty) {
+      return context.tr("password_required");
+    }
+
+    if (value.length < 8) {
+      return context.tr("password_short");
+    }
+
+    final strongRegex = RegExp(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$');
+
+    if (!strongRegex.hasMatch(value)) {
+      return context.tr("password_weak");
+    }
+
+    return null;
+  }
+}
+

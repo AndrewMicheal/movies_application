@@ -25,12 +25,12 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final nameController = TextEditingController(text: "Andrew");
-  final emailController = TextEditingController(text: "andrew1@test.com");
-  final passwordController = TextEditingController(text : "Aaa090!@");
-  final confirmController = TextEditingController(text: "Aaa090!@");
-  final phoneController = TextEditingController(text: "201141209334");
-
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmController = TextEditingController();
+  final phoneController = TextEditingController();
+  bool isSelected = false;
   int selectedAvatarIndex = 0;
 
   final List<String> avatars = [
@@ -149,16 +149,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: passwordController,
                       hintText: context.tr("password"),
                       prefixIcon: Image.asset(AssetsManager.iconPassword),
-                      suffixIcon: Icon(Icons.visibility_off, color: AppColors.whiteColor),
+                      obscureText: !isSelected,
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isSelected = !isSelected;
+                          });
+                        },
+                        child: Icon(
+                          isSelected
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
                       validator: (v) => RegisterValidators.validatePassword(context, v ?? ""),
                     ),
                     SizedBox(height: size.height * 0.02),
 
                     CustomTextFormField(
                       controller: confirmController,
-                      hintText: context.tr("confirmPassword"),
+                      hintText: context.tr("confirm Password"),
                       prefixIcon: Image.asset(AssetsManager.iconPassword),
-                      suffixIcon: Icon(Icons.visibility_off, color: AppColors.whiteColor),
+                      obscureText: !isSelected,
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isSelected = !isSelected;
+                          });
+                        },
+                        child: Icon(
+                          isSelected
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
                       validator: (v) => RegisterValidators.validateConfirmPassword(
                         context,
                         passwordController.text,
