@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/core/di/di.dart';
 import 'package:movies/features/auth/presentation/screens/login.dart';
 import 'package:movies/features/auth/presentation/screens/register.dart';
 import 'package:movies/features/movies/domain/usecases/get_movies.dart';
@@ -19,7 +20,7 @@ import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/usecases/register_usecase.dart';
 import 'features/auth/presentation/cubit/register_cubit.dart';
 
-import 'features/movies/data/data_sources/movie_remote_data_sources.dart';
+
 import 'features/movies/data/data_sources/movies_remote_data_sources.dart';
 
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
@@ -27,6 +28,7 @@ import 'features/movies/presentation/cubit/movie_cubit.dart';
 
 
 void main() {
+  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   final dio = Dio();
 
@@ -87,7 +89,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.profileScreen: (context) => const ProfilePage(),
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
           },
-          initialRoute: AppRoutes.registerScreen,
+          initialRoute: AppRoutes.onBoardingScreen,
           builder: (context, widget) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(
