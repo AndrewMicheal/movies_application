@@ -1,6 +1,5 @@
-
-import '../../domain/repositories/reset_password_repository.dart';
-import '../data_sources/reset_password_remote_data_source.dart';
+import 'package:movies/features/auth/data/data_sources/reset_password_remote_data_source.dart';
+import 'package:movies/features/auth/domain/repositories/reset_password_repository.dart';
 
 class ResetPasswordRepositoryImpl implements ResetPasswordRepository {
   final ResetPasswordRemoteDataSource remote;
@@ -8,7 +7,7 @@ class ResetPasswordRepositoryImpl implements ResetPasswordRepository {
   ResetPasswordRepositoryImpl(this.remote);
 
   @override
-  Future<Map<String, dynamic>> resetPassword({
+  Future<String> resetPassword({
     required String token,
     required String oldPassword,
     required String newPassword,

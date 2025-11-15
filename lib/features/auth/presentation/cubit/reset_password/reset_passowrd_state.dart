@@ -1,32 +1,15 @@
-import 'package:equatable/equatable.dart';
+abstract class ResetPasswordState {}
 
-abstract class ResetPasswordState extends Equatable {
-  const ResetPasswordState();
+class ResetPasswordInitial extends ResetPasswordState {}
 
-  @override
-  List<Object?> get props => [];
-}
-
-class ResetPasswordInitial extends ResetPasswordState {
-  const ResetPasswordInitial();
-}
-
-class ResetPasswordLoading extends ResetPasswordState {
-  const ResetPasswordLoading();
-}
+class ResetPasswordLoading extends ResetPasswordState {}
 
 class ResetPasswordSuccess extends ResetPasswordState {
   final String message;
-  const ResetPasswordSuccess(this.message);
-
-  @override
-  List<Object?> get props => [message];
+  ResetPasswordSuccess(this.message);
 }
 
 class ResetPasswordFailure extends ResetPasswordState {
   final String message;
-  const ResetPasswordFailure(this.message);
-
-  @override
-  List<Object?> get props => [message];
+  ResetPasswordFailure(this.message);
 }

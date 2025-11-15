@@ -168,4 +168,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reset_failed => 'Could not update password';
+
+  @override
+  String get reset_old_password => 'Old Password';
+
+  @override
+  String get reset_new_password => 'New Password';
+
+  @override
+  String get reset_password_button => 'Reset Password';
+
+  @override
+  String get reset_old_required => 'Old password is required';
+
+  @override
+  String get reset_new_required => 'New password is required';
+
+  @override
+  String get reset_password_min_length =>
+      'Password must be at least 6 characters';
+
+  @override
+  String get changePassword => 'Change Password';
 }

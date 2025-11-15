@@ -30,7 +30,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
   final phoneController = TextEditingController();
-  bool isSelected = false;
+  bool showpass = false;
+  bool showConfirm = false;
   int selectedAvatarIndex = 0;
 
   final List<String> avatars = [
@@ -149,17 +150,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: passwordController,
                       hintText: context.tr("password"),
                       prefixIcon: Image.asset(AssetsManager.iconPassword),
-                      obscureText: !isSelected,
+                      obscureText: !showpass,
                       suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {
-                            isSelected = !isSelected;
-                          });
-                        },
+                        onTap: () => setState(() => showpass = !showpass),
                         child: Icon(
-                          isSelected
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                          showpass ? Icons.visibility : Icons.visibility_off,
                           color: AppColors.whiteColor,
                         ),
                       ),
@@ -171,17 +166,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: confirmController,
                       hintText: context.tr("confirm Password"),
                       prefixIcon: Image.asset(AssetsManager.iconPassword),
-                      obscureText: !isSelected,
+                      obscureText: !showConfirm,
                       suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {
-                            isSelected = !isSelected;
-                          });
-                        },
+                        onTap: () => setState(() => showConfirm = !showConfirm),
                         child: Icon(
-                          isSelected
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                          showConfirm ? Icons.visibility : Icons.visibility_off,
                           color: AppColors.whiteColor,
                         ),
                       ),

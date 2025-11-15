@@ -6,7 +6,7 @@ class AppRoutes {
   static const String searchScreen = "searchScreen";
   static const String browseScreen = "browseScreen";
   static const String profileScreen = "profileScreen";
-  static const String forgetPassword = 'forgetPassword';
+  static const String resetPassword = 'resetPassword';
 
 
 }

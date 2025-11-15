@@ -403,6 +403,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not update password'**
   String get reset_failed;
+
+  /// No description provided for @reset_old_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Old Password'**
+  String get reset_old_password;
+
+  /// No description provided for @reset_new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get reset_new_password;
+
+  /// No description provided for @reset_password_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get reset_password_button;
+
+  /// No description provided for @reset_old_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password is required'**
+  String get reset_old_required;
+
+  /// No description provided for @reset_new_required.
+  ///
+  /// In en, this message translates to:
+  /// **'New password is required'**
+  String get reset_new_required;
+
+  /// No description provided for @reset_password_min_length.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get reset_password_min_length;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePassword;
 }
 
 class _AppLocalizationsDelegate

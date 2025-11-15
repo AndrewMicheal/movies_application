@@ -58,6 +58,19 @@
   "password_weak": "Password must contain uppercase, lowercase, number and symbol",
   "password_same": "New password must be different from old password",
   "reset_success": "Password updated successfully",
-  "reset_failed": "Could not update password"
+  "reset_failed": "Could not update password",
+  "reset_old_password": "Old Password",
+  "reset_new_password": "New Password",
+  "reset_password_button": "Reset Password",
+
+  "reset_old_required": "Old password is required",
+  "reset_new_required": "New password is required",
+
+  "reset_password_min_length": "Password must be at least 6 characters",
+  "oldPassword": "Old Password",
+  "newPassword": "New Password",
+  "changePassword": "Change Password"
+
+
 
 }
