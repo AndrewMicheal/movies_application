@@ -168,4 +168,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reset_failed => 'تعذّر تغيير كلمة المرور';
+
+  @override
+  String get reset_old_password => 'كلمة المرور القديمة';
+
+  @override
+  String get reset_new_password => 'كلمة المرور الجديدة';
+
+  @override
+  String get reset_password_button => 'تغيير كلمة المرور';
+
+  @override
+  String get reset_old_required => 'يجب إدخال كلمة المرور القديمة';
+
+  @override
+  String get reset_new_required => 'يجب إدخال كلمة المرور الجديدة';
+
+  @override
+  String get reset_password_min_length =>
+      'يجب أن تكون كلمة المرور 6 أحرف على الأقل';
+
+  @override
+  String get changePassword => 'Change Password';
 }

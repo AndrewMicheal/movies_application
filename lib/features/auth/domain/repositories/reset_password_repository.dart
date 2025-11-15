@@ -1,5 +1,5 @@
 abstract class ResetPasswordRepository {
-  Future<Map<String, dynamic>> resetPassword({
+  Future<String> resetPassword({
     required String token,
     required String oldPassword,
     required String newPassword,

@@ -2,12 +2,12 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import 'di.config.dart';
-	
-final getIt = GetIt.instance;  
-  
+
+final getIt = GetIt.instance;
+
 @InjectableInit(
   initializerName: 'initialize',
-  preferRelativeImports: true,  
+  preferRelativeImports: true,
   asExtension: true,
 )
 void configureDependencies() => getIt.initialize();

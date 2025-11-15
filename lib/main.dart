@@ -17,15 +17,18 @@ import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
 
 import 'features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'features/auth/data/data_sources/reset_password_remote_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/data/repositories/reset_password_repository_impl.dart';
 import 'features/auth/domain/usecases/register_usecase.dart';
 
+import 'features/auth/domain/usecases/reset_password_usecase.dart';
 import 'features/auth/presentation/cubit/registerScreen/register_cubit.dart';
+import 'features/auth/presentation/cubit/reset_password/reset_password_cubit.dart';
 import 'features/movies/data/data_sources/movies_remote_data_sources.dart';
 
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
 import 'features/movies/presentation/cubit/movie_cubit.dart';
-
 
 void main() {
   configureDependencies();
@@ -37,40 +40,37 @@ void main() {
       providers: [
         BlocProvider(
           create: (_) => MovieCubit(
-            GetMovies(
-              MovieRepositoryImpl(
-                MovieRemoteDataSourceImpl(dio),
-              ),
-            ),
+            GetMovies(MovieRepositoryImpl(MovieRemoteDataSourceImpl(dio))),
           ),
         ),
 
         BlocProvider(
           create: (_) => RegisterCubit(
-            RegisterUseCase(
-              AuthRepositoryImpl(
-                AuthRemoteDataSource(dio),
+            RegisterUseCase(AuthRepositoryImpl(AuthRemoteDataSource(dio))),
+          ),
+        ),
+
+        BlocProvider(
+          create: (_) => ResetPasswordCubit(
+            ResetPasswordUseCase(
+              ResetPasswordRepositoryImpl(
+                ResetPasswordRemoteDataSource(dio),
               ),
             ),
           ),
         ),
       ],
-      child:  MyApp(),
+      child: MyApp(),
     ),
   );
+
 }
-
-
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
-      designSize: const Size(
-        430,
-        932,
-      ),
+      designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -88,14 +88,14 @@ class MyApp extends StatelessWidget {
             AppRoutes.browseScreen: (context) => const BrowsePage(),
             AppRoutes.profileScreen: (context) => const ProfilePage(),
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
-            AppRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
+            AppRoutes.resetPassword: (context) => const ResetPasswordScreen(),
           },
-          initialRoute: AppRoutes.onBoardingScreen,
+          initialRoute: AppRoutes.loginScreen,
           builder: (context, widget) {
             return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: const TextScaler.linear(1.0),
-              ),
+              data: MediaQuery.of(
+                context,
+              ).copyWith(textScaler: const TextScaler.linear(1.0)),
               child: widget!,
             );
           },

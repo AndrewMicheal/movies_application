@@ -124,9 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          AppLocalizations.of(context)!.forget_password,
-                          style: AppStyles.regular14RobotoYellow,
+                        TextButton(
+
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoutes.resetPassword);
+
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.forget_password,
+                            style: AppStyles.regular14RobotoYellow,
+                          ),
                         ),
                       ],
                     ),
