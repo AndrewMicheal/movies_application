@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
             AppRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
           },
-          initialRoute: AppRoutes.registerScreen,
+          initialRoute: AppRoutes.onBoardingScreen,
           builder: (context, widget) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(
