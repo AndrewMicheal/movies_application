@@ -18,6 +18,8 @@ import '../cubit/registerScreen/register_state.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
+
+
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -39,6 +41,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     AssetsManager.avatarImage2,
     AssetsManager.avatarImage3,
   ];
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               password: passwordController.text,
                               confirmPassword: confirmController.text,
                               phone: phoneController.text,
-                              avatarId: selectedAvatarIndex + 1,
+                              avatarId: selectedAvatarIndex+1 ,
                             );
                           }
                         }

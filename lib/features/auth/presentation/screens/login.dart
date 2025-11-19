@@ -23,19 +23,23 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController(
-    text: "andrew0@test.com",
-  );
+  TextEditingController emailController = TextEditingController();
   final _loginFormKey = GlobalKey<FormState>();
 
-  TextEditingController passwordController = TextEditingController(
-    text: "Aaa090!@",
-  );
+  TextEditingController passwordController = TextEditingController();
   bool isSelected = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    
+
     return BlocProvider(
       create: (_) => getIt<LoginCubit>(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -53,12 +57,23 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccessState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Success Login"),
+                content: Text(state.message),
                 behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.green,
               ),
             );
 
             Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+          }
+
+          if (state is LoginFailureState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.red,
+              ),
+            );
           }
 
           if (state is LoginErrorState) {
@@ -66,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SnackBar(
                 content: Text(state.errorMessage),
                 behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.red,
               ),
             );
           }
@@ -77,163 +93,161 @@ class _LoginScreenState extends State<LoginScreen> {
               backgroundColor: AppColors.nearBlack,
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-                child: Column(
-                  children: [
-                    SizedBox(height: size.height * 0.05),
-                    Image.asset(AssetsManager.loginSplashScreen),
-                    SizedBox(height: 70.h),
-                    Form(
-                      key: _loginFormKey,
-                      child: Column(
-                        children: [
-                          CustomTextFormField(
-                            controller: emailController,
-                            validator: (v) =>
-                                Validators.validateEmail(context, v ?? ""),
-                            hintText: context.tr("email"),
-                            prefixIcon: Image.asset(AssetsManager.iconMessage),
-                          ),
-                          SizedBox(height: size.height * 0.02),
-                          CustomTextFormField(
-                            controller: passwordController,
-                            validator: (v) =>
-                                Validators.validatePassword(context, v ?? ""),
-                            hintText: context.tr("password"),
-                            prefixIcon: Image.asset(AssetsManager.iconPassword),
-                            obscureText: !isSelected,
-                            suffixIcon: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isSelected = !isSelected;
-                                });
-                              },
-                              child: Icon(
-                                isSelected
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: AppColors.whiteColor,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height * 0.05),
+                      Image.asset(AssetsManager.loginSplashScreen),
+                      SizedBox(height: 70.h),
+                      Form(
+                        key: _loginFormKey,
+                        child: Column(
+                          children: [
+                            CustomTextFormField(
+                              controller: emailController,
+                              validator: (v) =>
+                                  Validators.validateEmail(context, v ?? ""),
+                              hintText: context.tr("email"),
+                              prefixIcon: Image.asset(AssetsManager.iconMessage),
+                            ),
+                            SizedBox(height: size.height * 0.02),
+                            CustomTextFormField(
+                              controller: passwordController,
+                              validator: (v) =>
+                                  Validators.validatePassword(context, v ?? ""),
+                              hintText: context.tr("password"),
+                              prefixIcon: Image.asset(AssetsManager.iconPassword),
+                              obscureText: !isSelected,
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isSelected = !isSelected;
+                                  });
+                                },
+                                child: Icon(
+                                  isSelected
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: AppColors.whiteColor,
+                                ),
                               ),
                             ),
+                            SizedBox(height: size.height * 0.02),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: size.height * 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, AppRoutes.resetPassword);
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.forget_password,
+                              style: AppStyles.regular14RobotoYellow,
+                            ),
                           ),
-                          SizedBox(height: size.height * 0.02),
                         ],
                       ),
-                    ),
-
-                    SizedBox(height: size.height * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-
-                          onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.resetPassword);
-
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.forget_password,
-                            style: AppStyles.regular14RobotoYellow,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    SizedBox(
-                      width: double.infinity,
-                      child: CustomElevatedButtom(
-                           onPressed: !isLoading
-                            ? () {
-                          if (_loginFormKey.currentState!.validate()) {
-                            context.read<LoginCubit>().login(
-                              
-                               emailController.text,
-                               passwordController.text,
-    
-                            );
+                      SizedBox(height: size.height * 0.02),
+                      SizedBox(
+                        width: double.infinity,
+                        child: CustomElevatedButtom(
+                          onPressed: !isLoading
+                              ? () {
+                            if (_loginFormKey.currentState?.validate() ?? false) {
+                              context.read<LoginCubit>().login(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                              );
+                            }
                           }
-                        }
-                            : null,
-                        text: AppLocalizations.of(context)!.login,
-                        textStyle: AppStyles.regular20RobotoDarkGrey,
+                              : null,
+                          text: AppLocalizations.of(context)!.login,
+                          textStyle: AppStyles.regular20RobotoDarkGrey,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          AppRoutes.registerScreen,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(height: size.height * 0.02),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            AppRoutes.registerScreen,
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${AppLocalizations.of(context)!.dont_have_account} ? ",
+                              style: AppStyles.regular14RobotoWhite,
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!.create_one,
+                              style: AppStyles.bold14RobotoYellow,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.02),
+                      Row(
                         children: [
-                          Text(
-                            "${AppLocalizations.of(context)!.dont_have_account} ? ",
-                            style: AppStyles.regular14RobotoWhite,
+                          Expanded(
+                            child: Divider(
+                              color: AppColors.yellow,
+                              thickness: 2,
+                              indent: size.width * 0.04,
+                              endIndent: size.width * 0.04,
+                            ),
                           ),
                           Text(
-                            AppLocalizations.of(context)!.create_one,
-                            style: AppStyles.bold14RobotoYellow,
+                            AppLocalizations.of(context)!.or,
+                            style: AppStyles.regular15RobotoWhite.copyWith(
+                              color: AppColors.yellow,
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: AppColors.yellow,
+                              thickness: 2,
+                              indent: size.width * 0.04,
+                              endIndent: size.width * 0.04,
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: AppColors.yellow,
-                            thickness: 2,
-                            indent: size.width * 0.04,
-                            endIndent: size.width * 0.04,
-                          ),
+                      SizedBox(height: size.height * 0.02),
+                      CustomElevatedButtom(
+                        onPressed: () {},
+                        hasIcon: true,
+                        text: "",
+                        childIconWidget: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(AssetsManager.iconGoogle),
+                            SizedBox(width: size.width * 0.03),
+                            Text(
+                              AppLocalizations.of(context)!.login_with_google,
+                              style: AppStyles.regular16RobotoDarkGrey,
+                            ),
+                          ],
                         ),
-                        Text(
-                          AppLocalizations.of(context)!.or,
-                          style: AppStyles.regular15RobotoWhite.copyWith(
-                            color: AppColors.yellow,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: AppColors.yellow,
-                            thickness: 2,
-                            indent: size.width * 0.04,
-                            endIndent: size.width * 0.04,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    CustomElevatedButtom(
-                      onPressed: () {},
-                      hasIcon: true,
-                      text: "",
-                      childIconWidget: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(AssetsManager.iconGoogle),
-                          SizedBox(width: size.width * 0.03),
-                          Text(
-                            AppLocalizations.of(context)!.login_with_google,
-                            style: AppStyles.regular16RobotoDarkGrey,
-                          ),
-                        ],
                       ),
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    SlidingSwitch(
-                      firstImage: Image.asset(AssetsManager.americaIcon),
-                      secondImage: Image.asset(AssetsManager.egyptIcon),
-                      onToggle: (index) {
-                        setState(() {
-                          print(index);
-                        });
-                      },
-                    ),
-                  ],
+                      SizedBox(height: size.height * 0.02),
+                      SlidingSwitch(
+                        firstImage: Image.asset(AssetsManager.americaIcon),
+                        secondImage: Image.asset(AssetsManager.egyptIcon),
+                        onToggle: (index) {
+                          setState(() {
+                            print(index);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

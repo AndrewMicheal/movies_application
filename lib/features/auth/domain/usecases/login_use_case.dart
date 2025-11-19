@@ -1,16 +1,18 @@
 import 'package:dart_either/dart_either.dart';
-import 'package:injectable/injectable.dart';
-import 'package:movies/core/failure.dart';
-import 'package:movies/features/auth/domain/entities/login.dart';
-import 'package:movies/features/auth/domain/repositories/login_repo.dart';
 
-@injectable
+import '../../../../core/failure.dart';
+import '../entities/login.dart';
+import '../repositories/login_repo.dart';
+
 class LoginUseCase {
-  final LoginRepo loginRepo;
-  LoginUseCase(this.loginRepo);
+  final LoginRepo repo;
 
-  Future<Either<Failure, Login>> login(String email,  String password,) async {
-    
-    return await loginRepo.login(email, password);
+  LoginUseCase(this.repo);
+
+  Future<Either<Failure, Login>> call({
+    required String email,
+    required String password,
+  }) {
+    return repo.login(email: email, password: password);
   }
 }

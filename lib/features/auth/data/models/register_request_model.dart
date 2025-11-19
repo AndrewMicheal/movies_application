@@ -7,7 +7,7 @@ class RegisterRequestModel extends RegisterEntity {
     required super.password,
     required super.confirmPassword,
     required super.phone,
-    required super.avaterId,
+    required super.avatarId,
   });
 
   Map<String, dynamic> toJson() => {
@@ -16,6 +16,6 @@ class RegisterRequestModel extends RegisterEntity {
     "password": password,
     "confirmPassword": confirmPassword,
     "phone": phone,
-    "avaterId": avaterId,
+    "avaterId": avatarId,
   };
 }

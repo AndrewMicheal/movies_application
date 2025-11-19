@@ -15,4 +15,6 @@ abstract class AuthRepository {
     required int avatarId,
   });
 
+  
+
 }

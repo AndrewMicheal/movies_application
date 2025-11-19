@@ -29,15 +29,44 @@ import 'features/movies/data/data_sources/movies_remote_data_sources.dart';
 
 import 'features/movies/domain/repositories/movie_repository_impl.dart';
 import 'features/movies/presentation/cubit/movie_cubit.dart';
+import 'features/profile/data/datasources/profile_remote_ds.dart';
+import 'features/profile/data/repo/profile_repository_impl.dart';
+import 'features/profile/domain/repos/profile_repo.dart';
+import 'features/profile/domain/usecases/get_profile_use_case.dart';
+import 'features/profile/domain/usecases/update_profile_use_case.dart';
+import 'features/profile/presentation/cubit/profile_cubit.dart';
 
 void main() {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
-  final dio = Dio();
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: "https://route-movie-apis.vercel.app",
+      validateStatus: (status) => true, // Don't throw exceptions on any status
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
+    ),
+  );
+
+  // Optional: Add logging to see what's being sent
+  dio.interceptors.add(LogInterceptor(
+    request: true,
+    requestBody: true,
+    responseBody: true,
+    error: true,
+  ));
+  final repo = ProfileRepositoryImpl(ProfileRemoteDataSource(
+    dio,
+  ));
 
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider<ProfileCubit>(create: (_) => ProfileCubit(repo, getProfileUseCase: GetProfileUseCase(repo), updateProfileUseCase: UpdateProfileUseCase(repo),),),
         BlocProvider(
           create: (_) => MovieCubit(
             GetMovies(MovieRepositoryImpl(MovieRemoteDataSourceImpl(dio))),
@@ -53,9 +82,7 @@ void main() {
         BlocProvider(
           create: (_) => ResetPasswordCubit(
             ResetPasswordUseCase(
-              ResetPasswordRepositoryImpl(
-                ResetPasswordRemoteDataSource(dio),
-              ),
+              ResetPasswordRepositoryImpl(ResetPasswordRemoteDataSource(dio)),
             ),
           ),
         ),
@@ -63,7 +90,6 @@ void main() {
       child: MyApp(),
     ),
   );
-
 }
 
 class MyApp extends StatelessWidget {
@@ -90,7 +116,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
             AppRoutes.resetPassword: (context) => const ResetPasswordScreen(),
           },
-          initialRoute: AppRoutes.loginScreen,
+          initialRoute: AppRoutes.onBoardingScreen,
           builder: (context, widget) {
             return MediaQuery(
               data: MediaQuery.of(

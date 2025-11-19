@@ -18,6 +18,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   }) async {
     emit(const RegisterLoading());
 
+
+
+
+
     try {
       final RegisterResponseModel result = await registerUseCase(
         name: name,
@@ -40,4 +44,5 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(RegisterFailure(e.toString()));
     }
   }
+
 }

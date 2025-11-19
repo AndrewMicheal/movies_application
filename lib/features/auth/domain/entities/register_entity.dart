@@ -4,7 +4,7 @@ class RegisterEntity {
   final String password;
   final String confirmPassword;
   final String phone;
-  final int avaterId;
+  final int avatarId;
 
   RegisterEntity({
     required this.name,
@@ -12,6 +12,6 @@ class RegisterEntity {
     required this.password,
     required this.confirmPassword,
     required this.phone,
-    required this.avaterId,
+    required this.avatarId,
   });
 }

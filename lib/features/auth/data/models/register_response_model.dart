@@ -11,6 +11,7 @@ class RegisterResponseModel {
 
   factory RegisterResponseModel.fromJson(Map<String, dynamic> json, {int? statusCode}) {
     String parsedMessage;
+    token:json['token'];
     if (json["message"] is List) {
       parsedMessage = (json["message"] as List).join(", ");
     } else if (json["message"] is String) {
@@ -25,4 +26,6 @@ class RegisterResponseModel {
       statusCode: statusCode,
     );
   }
+
+  get token => null;
 }

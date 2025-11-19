@@ -5,6 +5,8 @@ import 'package:movies/features/auth/data/data_sources/login_remote_data_source.
 import 'package:movies/features/auth/data/models/LoginResponse.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../../../core/token_storage/token_storage.dart';
+
 @Injectable(as: LoginRemoteDataSource)
 class LoginRemoteDataSourceImpl implements LoginRemoteDataSource{
   final Dio dio;
@@ -20,27 +22,33 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource{
       responseBody: true
   ));
  @override
-  Future<LoginResponse> login(String email, String password) async{
-    try{
-      final response = await dio.post(
-        'auth/login',
-        data: {"email": email, "password": password},
-      );
-      if (response.statusCode == 200) {
-        return LoginResponse.fromJson(response.data);
-      } else {
-        throw Exception('Login failed with states code ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionError) {
-        throw Exception('no internet connection');
-      } else if (e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('no internet connection');
-      } else if (e.response != null) {
-        throw Exception(e.response?.data['message'] ?? 'Login Failed ');
-      } else {
-        throw Exception('Something went wrong');
-      }
-    }
-  }
-}
+ Future<LoginResponseModel> login({
+   required String email,
+   required String password,
+ }) async {
+   try {
+     final response = await dio.post(
+       "/auth/login",
+       data: {
+         "email": email,
+         "password": password,
+       },
+     );
+
+     final result = LoginResponseModel.fromJson(
+       response.data as Map<String, dynamic>,
+       statusCode: response.statusCode,
+     );
+
+
+     if (result.token.isNotEmpty) {
+       await TokenStorage.saveToken(result.token);
+       print("TOKEN SAVED: ${result.token}");
+     }
+
+     return result;
+   } catch (e) {
+     // Handle error
+     throw Exception("Login failed: $e");
+   }
+ }}

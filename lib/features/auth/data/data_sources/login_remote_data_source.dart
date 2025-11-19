@@ -1,5 +1,8 @@
 import 'package:movies/features/auth/data/models/LoginResponse.dart';
 
 abstract class LoginRemoteDataSource {
-  Future<LoginResponse> login(String email , String password);
+  Future<LoginResponseModel> login({
+    required String email,
+    required String password,
+  });
 }
