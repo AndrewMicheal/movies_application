@@ -155,10 +155,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             );
 
             if (state.message.toLowerCase().contains('deleted')) {
-              // Clear token and navigate to login
               Navigator.of(context).popUntil((route) => route.isFirst);
             } else {
-              // Just pop back to profile screen
               Navigator.of(context).pop();
             }
           }

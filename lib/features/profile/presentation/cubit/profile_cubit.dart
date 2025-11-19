@@ -25,10 +25,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(const ProfileLoading());
 
     try {
-      print('📞 Getting profile with token: $token');
+
 
       if (token.isEmpty) {
-        print('❌ Token is empty');
+
         emit(const ProfileError('Token is missing. Please login again.'));
         return;
       }
@@ -37,16 +37,16 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       await result.fold(
             (failure) async {
-          print('❌ Get profile failed: ${failure.message}');
+
           emit(ProfileError(failure.message ?? 'Failed to load profile'));
         },
             (profile) async {
-          print('✅ Profile loaded: ${profile.name}');
+
           emit(ProfileLoaded(profile));
         },
       );
     } catch (e) {
-      print('❌ Exception in getProfile: $e');
+
       emit(ProfileError('Error loading profile: $e'));
     }
   }
@@ -55,11 +55,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(const ProfileLoading());
 
     try {
-      print('📞 Updating profile...');
-      print('   Token: $token');
-      print('   Name: ${profile.name}');
-      print('   Phone: ${profile.phone}');
-      print('   Avatar: ${profile.avatarIndex}');
+
 
       if (token.isEmpty) {
         emit(const ProfileError('Token is missing. Please login again.'));
@@ -75,18 +71,18 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       await result.fold(
             (failure) async {
-          print('❌ Update failed: ${failure.message}');
+
           emit(ProfileError(failure.message ?? 'Failed to update profile'));
         },
             (updatedProfile) async {
-          print('✅ Profile updated successfully');
+
           emit(ProfileLoaded(updatedProfile));
           await Future.delayed(const Duration(milliseconds: 500));
           emit(const ProfileActionSuccess('Profile updated successfully'));
         },
       );
     } catch (e) {
-      print('❌ Exception in updateProfile: $e');
+
       emit(ProfileError('Error updating profile: $e'));
     }
   }

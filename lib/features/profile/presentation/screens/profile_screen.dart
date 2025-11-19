@@ -30,13 +30,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _loadProfile() async {
     try {
-      print('🔍 Attempting to load profile...');
+
       final token = await TokenStorage.getToken();
 
-      print('🔍 Token retrieved: ${token ?? "NULL"}');
 
       if (token == null || token.isEmpty) {
-        print('❌ Token is missing or empty');
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -55,13 +53,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _token = token;
       });
 
-      print('✅ Token set, fetching profile...');
 
       if (mounted) {
         context.read<ProfileCubit>().getProfile(token);
       }
     } catch (e) {
-      print('❌ Error loading profile: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

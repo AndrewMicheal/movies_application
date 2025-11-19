@@ -11,8 +11,7 @@ class ProfileRemoteDataSource {
 
   Future<ProfileEntity> getProfile(String token) async {
     try {
-      print('🌐 API Request: GET /profile');
-      print('🔑 Token: $token');
+
 
       final response = await dio.get(
         '/profile',
@@ -24,18 +23,13 @@ class ProfileRemoteDataSource {
         ),
       );
 
-      print('✅ Response Status: ${response.statusCode}');
-      print('📦 Response Data: ${response.data}');
 
-      // Handle different response structures
+
       final data = response.data['data'] ?? response.data;
       return ProfileModel.fromJson(data).toEntity();
 
     } on DioException catch (e) {
-      print('❌ Profile API Error:');
-      print('   Status: ${e.response?.statusCode}');
-      print('   Message: ${e.message}');
-      print('   Data: ${e.response?.data}');
+
 
       if (e.response?.statusCode == 401) {
         throw Exception('Token is invalid or expired. Please login again.');
@@ -51,9 +45,7 @@ class ProfileRemoteDataSource {
     required int avatarIndex,
   }) async {
     try {
-      print('🌐 API Request: PUT /profile');
-      print('🔑 Token: $token');
-      print('📤 Data: name=$name, avatarIndex=$avatarIndex');
+
 
       final response = await dio.put(
         '/profile',
@@ -69,13 +61,13 @@ class ProfileRemoteDataSource {
         ),
       );
 
-      print('✅ Update successful: ${response.statusCode}');
+
 
       final data = response.data['data'] ?? response.data;
       return ProfileModel.fromJson(data).toEntity();
 
     } on DioException catch (e) {
-      print('❌ Update Profile Error: ${e.message}');
+
       throw Exception(e.response?.data['message'] ?? 'Failed to update profile');
     }
   }
