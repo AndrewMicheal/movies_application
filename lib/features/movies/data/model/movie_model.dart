@@ -6,10 +6,12 @@ class MovieModel extends Movie {
     required super.image,
     required super.rating,
     required super.genre,
+    required super.id
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
+      id: json['id'] ?? 0,
       title: json['title'] ?? '',
       image: json['medium_cover_image'] ?? '',
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,

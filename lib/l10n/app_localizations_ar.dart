@@ -190,4 +190,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get changePassword => 'Change Password';
+
+  @override
+  String get watch => 'شاهد';
+
+  @override
+  String get screen_shots => 'لقطات الشاشة';
+
+  @override
+  String get summary => 'ملخص';
+
+  @override
+  String get no_summary_available_for_this_movie =>
+      'لا يوجد ملخص متاح لهذا الفيلم';
+
+  @override
+  String get casts => 'طاقم التمثيل';
+
+  @override
+  String get character => 'شخصية';
+
+  @override
+  String get genres => 'تصنيفات الفيلم';
 }

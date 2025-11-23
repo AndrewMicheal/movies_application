@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:movies/core/app_routes.dart';
 import '../../domain/entities/movie.dart';
 
 class MovieListHorizontal extends StatelessWidget {
@@ -17,27 +18,33 @@ class MovieListHorizontal extends StatelessWidget {
           final movie = movies[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: CachedNetworkImage(
-                    imageUrl: movie.image,
-                    height: 160,
-                    width: 110,
-                    fit: BoxFit.cover,
+            child: InkWell(
+              onTap: () {
+                 print('Movie ID: ${movie.id}');
+                 Navigator.pushNamed(context, AppRoutes.movieDetails , arguments: movie.id);
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: CachedNetworkImage(
+                      imageUrl: movie.image,
+                      height: 160,
+                      width: 110,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.yellow, size: 14),
-                    Text(movie.rating.toString(),
-                        style: const TextStyle(color: Colors.white, fontSize: 12)),
-                  ],
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.yellow, size: 14),
+                      Text(movie.rating.toString(),
+                          style: const TextStyle(color: Colors.white, fontSize: 12)),
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         },

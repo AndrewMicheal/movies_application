@@ -445,6 +445,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change Password'**
   String get changePassword;
+
+  /// No description provided for @watch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get watch;
+
+  /// No description provided for @screen_shots.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen Shots'**
+  String get screen_shots;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// No description provided for @no_summary_available_for_this_movie.
+  ///
+  /// In en, this message translates to:
+  /// **'No summary available for this movie'**
+  String get no_summary_available_for_this_movie;
+
+  /// No description provided for @casts.
+  ///
+  /// In en, this message translates to:
+  /// **'Casts'**
+  String get casts;
+
+  /// No description provided for @character.
+  ///
+  /// In en, this message translates to:
+  /// **'Character'**
+  String get character;
+
+  /// No description provided for @genres.
+  ///
+  /// In en, this message translates to:
+  /// **'Genres'**
+  String get genres;
 }
 
 class _AppLocalizationsDelegate
