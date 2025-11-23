@@ -190,4 +190,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changePassword => 'Change Password';
+
+  @override
+  String get watch => 'Watch';
+
+  @override
+  String get screen_shots => 'Screen Shots';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get no_summary_available_for_this_movie =>
+      'No summary available for this movie';
+
+  @override
+  String get casts => 'Casts';
+
+  @override
+  String get character => 'Character';
+
+  @override
+  String get genres => 'Genres';
 }
