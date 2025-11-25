@@ -5,7 +5,7 @@ import '../../domain/usecases/get_movies.dart';
 
 class MovieCubit extends Cubit<List<Movie>> {
   final GetMovies getMovies;
-  MovieCubit(this.getMovies) : super([]);
+  MovieCubit(this.getMovies,) : super([]);
 
   Future<void> loadMovies() async {
     final result = await getMovies();
