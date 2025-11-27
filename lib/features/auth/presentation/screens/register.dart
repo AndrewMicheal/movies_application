@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final phoneController = TextEditingController();
   bool showpass = false;
   bool showConfirm = false;
-  int selectedAvatarIndex = 0;
+  int selectedavaterId = 0;
 
   final List<String> avatars = [
     AssetsManager.avatarImage1,
@@ -123,11 +123,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: List.generate(avatars.length, (index) {
-                        bool isSelected = selectedAvatarIndex == index;
+                        bool isSelected = selectedavaterId == index;
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                              selectedAvatarIndex = index;
+                              selectedavaterId = index;
                             });
                           },
                           child: CircleAvatar(
@@ -215,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               password: passwordController.text,
                               confirmPassword: confirmController.text,
                               phone: phoneController.text,
-                              avatarId: selectedAvatarIndex+1 ,
+                              avaterId: selectedavaterId ,
                             );
                           }
                         }

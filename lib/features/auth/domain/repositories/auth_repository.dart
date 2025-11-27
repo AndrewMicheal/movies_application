@@ -12,7 +12,7 @@ abstract class AuthRepository {
     required String password,
     required String confirmPassword,
     required String phone,
-    required int avatarId,
+    required int avaterId,
   });
 
   

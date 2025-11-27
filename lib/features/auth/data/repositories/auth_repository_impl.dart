@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String confirmPassword,
     required String phone,
-    required int avatarId,
+    required int avaterId,
   }) async {
     final res = await remote.register(
       name: name,
@@ -22,7 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
       password: password,
       confirmPassword: confirmPassword,
       phone: phone,
-      avatarId: avatarId,
+      avaterId: avaterId,
     );
 
     return res;

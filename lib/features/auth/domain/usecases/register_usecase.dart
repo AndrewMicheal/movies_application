@@ -12,7 +12,7 @@ class RegisterUseCase {
     required String password,
     required String confirmPassword,
     required String phone,
-    required int avatarId,
+    required int avaterId,
   }) {
     return repo.register(
       name: name,
@@ -20,7 +20,7 @@ class RegisterUseCase {
       password: password,
       confirmPassword: confirmPassword,
       phone: phone,
-      avatarId: avatarId,
+      avaterId: avaterId,
     );
   }
 }

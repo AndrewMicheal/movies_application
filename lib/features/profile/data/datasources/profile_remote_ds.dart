@@ -42,7 +42,7 @@ class ProfileRemoteDataSource {
   Future<ProfileEntity> updateProfile({
     required String token,
     required String name,
-    required int avatarIndex,
+    required int avaterId,
   }) async {
     try {
 
@@ -51,7 +51,7 @@ class ProfileRemoteDataSource {
         '/profile',
         data: {
           'name': name,
-          'avatarIndex': avatarIndex,
+          'avaterId': avaterId,
         },
         options: Options(
           headers: {
