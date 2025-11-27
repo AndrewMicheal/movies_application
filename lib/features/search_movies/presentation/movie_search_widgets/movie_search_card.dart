@@ -79,9 +79,9 @@ class MovieSearchCard extends StatelessWidget {
                     movie.title,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
-                    maxLines: 2,
+                    maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
@@ -113,7 +113,7 @@ class MovieSearchCard extends StatelessWidget {
                           genre,
                           style: const TextStyle(
                             color: Colors.grey,
-                            fontSize: 10,
+                            fontSize: 8,
                           ),
                         ),
                       );
