@@ -33,7 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (state is ProfileLoaded) {
       _nameCtrl.text = state.profile.name;
       _phoneCtrl.text = state.profile.phone;
-      _selectedAvatar = state.profile.avatarIndex.clamp(0, avatars.length - 1);
+      _selectedAvatar = state.profile.avaterId.clamp(0, avatars.length - 1);
     }
   }
 
@@ -423,7 +423,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       final updated = ProfileEntity(
                         name: _nameCtrl.text.trim(),
                         phone: _phoneCtrl.text.trim(),
-                        avatarIndex: _selectedAvatar,
+                        avaterId: _selectedAvatar,
                       );
 
                       context

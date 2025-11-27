@@ -14,13 +14,13 @@ class UpdateProfileUseCase {
     required String token,
     required String name,
     required String phone,
-    required int avatarIndex,
+    required int avaterId,
   }) async {
     return await repository.updateProfile(
       token: token,
       name: name,
       phone: phone,
-      avatarIndex: avatarIndex,
+      avaterId: avaterId,
     );
   }
 }

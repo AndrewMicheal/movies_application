@@ -66,7 +66,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         token: token,
         name: profile.name,
         phone: profile.phone,
-        avatarIndex: profile.avatarIndex,
+        avaterId: profile.avaterId,
       );
 
       await result.fold(

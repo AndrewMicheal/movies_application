@@ -13,9 +13,9 @@ class AuthRemoteDataSource {
     required String password,
     required String confirmPassword,
     required String phone,
-    required int avatarId,
+    required int avaterId,
   }) async {
-    if (avatarId < 1 || avatarId > 3) {
+    if (avaterId < 0 || avaterId > 3) {
       throw Exception("Invalid avatar selection. Please select an avatar.");
     }
     try {
@@ -27,7 +27,7 @@ class AuthRemoteDataSource {
           "password": password,
           "confirmPassword": confirmPassword,
           "phone": phone,
-          "avaterId": avatarId,
+          "avaterId": avaterId,
         },
       );
 

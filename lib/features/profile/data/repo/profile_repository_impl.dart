@@ -25,14 +25,14 @@ class ProfileRepositoryImpl implements ProfileRepo {
   Future<Either<Failure, ProfileEntity>> updateProfile({
     required String token,
     required String name,
-    required int avatarIndex,
+    required int avaterId,
     required String phone,
   }) async {
     try {
       final profile = await remoteDataSource.updateProfile(
         token: token,
         name: name,
-        avatarIndex: avatarIndex,
+        avaterId: avaterId,
       );
       return Right(profile);
     } catch (e) {

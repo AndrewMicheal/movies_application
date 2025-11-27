@@ -14,7 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String confirmPassword,
     required String phone,
-    required int avatarId,
+    required int avaterId,
   }) async {
     emit(const RegisterLoading());
 
@@ -29,7 +29,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: password,
         confirmPassword: confirmPassword,
         phone: phone,
-        avatarId: avatarId,
+        avaterId: avaterId,
       );
 
       final status = result.statusCode ?? 200;

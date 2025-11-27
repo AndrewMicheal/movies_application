@@ -9,7 +9,7 @@ abstract class ProfileRepo {
     required String token,
     required String name,
     required String phone,
-    required int avatarIndex,
+    required int avaterId,
   });
 
   Future<Either<Failure, void>> deleteAccount(String token);
