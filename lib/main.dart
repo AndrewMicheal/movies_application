@@ -15,7 +15,6 @@ import 'package:movies/features/on_boarding_screen/prestentation/screen/on_board
 import 'package:movies/features/search_movies/presentation/movie_search_cubit/movie_search_cubit.dart';
 import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
-import 'package:movies/services/di.dart';
 
 import 'core/movie_search_di/movie_search_di.dart' as di;
 import 'features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -82,6 +81,7 @@ Future<void> main() async {
             GetMovies(MovieRepositoryImpl(MovieRemoteDataSourceImpl(dio))),
           ),
         ),
+
         BlocProvider(
           create: (_) => MovieSearchCubit(
             searchMoviesUseCase: SearchMoviesUseCase(
@@ -91,6 +91,8 @@ Future<void> main() async {
             ),
           ),
         ),
+
+
 
 
         BlocProvider(
@@ -133,7 +135,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.loginScreen: (context) => const LoginScreen(),
             AppRoutes.homeScreen: (context) => const HomeScreen(),
             AppRoutes.searchScreen: (context) => const SearchPage(),
-            AppRoutes.browseScreen: (context) => const BrowsePage(),
+            AppRoutes.browseScreen: (context) => const MovieGenreBrowserScreen(),
             AppRoutes.profileScreen: (context) => const ProfilePage(),
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
             AppRoutes.resetPassword: (context) => const ResetPasswordScreen(),
