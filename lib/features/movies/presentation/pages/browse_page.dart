@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../../movie_details/presentation/screens/movie_details_ui.dart';
 import '../../data/data_sources/movies_remote_data_sources.dart';
 import '../../data/model/movie_model.dart';
 
@@ -172,8 +173,18 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
-      child: Container(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MovieDetailsScreen(),
+              settings: RouteSettings(
+                arguments: movie.id
+              ),
+            ),
+          );
+        },
+    child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.grey[900],

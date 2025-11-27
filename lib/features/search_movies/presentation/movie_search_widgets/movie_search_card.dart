@@ -96,10 +96,6 @@ class MovieSearchCard extends StatelessWidget {
                       const SizedBox(width: 12),
                       const Icon(Icons.access_time, size: 12, color: Colors.grey),
                       const SizedBox(width: 4),
-                      Text(
-                        '${movie.runtime} min',
-                        style: const TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 4),

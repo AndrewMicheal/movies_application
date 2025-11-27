@@ -10,7 +10,7 @@ import 'package:movies/features/movie_details/presentation/cubit/movie_details_s
 import 'package:movies/l10n/app_localizations.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
-  const MovieDetailsScreen({super.key});
+  const MovieDetailsScreen({super.key,});
 
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
