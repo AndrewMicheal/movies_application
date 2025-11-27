@@ -12,6 +12,8 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   final Dio dio;
   MovieRemoteDataSourceImpl(this.dio);
 
+  // https://yts.lt/api/v2/list_movies.json
+
   @override
   Future<List<MovieModel>> fetchMovies() async {
     final response = await dio.get('https://yts.lt/api/v2/list_movies.json');

@@ -72,7 +72,14 @@
   "reset_old_required": "يجب إدخال كلمة المرور القديمة",
   "reset_new_required": "يجب إدخال كلمة المرور الجديدة",
 
-  "reset_password_min_length": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+  "reset_password_min_length": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
 
-
+ "watch" : "شاهد" ,
+  "screen_shots" : "لقطات الشاشة",
+  "summary" : "ملخص",
+  "no_summary_available_for_this_movie" : "لا يوجد ملخص متاح لهذا الفيلم",
+  "casts" : "طاقم التمثيل",
+  "name" : "الاسم" ,
+  "character" : "شخصية" ,
+  "genres" : "تصنيفات الفيلم"
 }

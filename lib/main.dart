@@ -6,6 +6,7 @@ import 'package:movies/core/di/di.dart';
 import 'package:movies/features/auth/presentation/screens/forget_password.dart';
 import 'package:movies/features/auth/presentation/screens/login.dart';
 import 'package:movies/features/auth/presentation/screens/register.dart';
+import 'package:movies/features/movie_details/presentation/screens/movie_details_ui.dart';
 import 'package:movies/features/movies/domain/usecases/get_movies.dart';
 import 'package:movies/features/movies/presentation/pages/browse_page.dart';
 import 'package:movies/features/movies/presentation/pages/main_navigation.dart';
@@ -132,13 +133,14 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           routes: {
             AppRoutes.onBoardingScreen: (context) => const OnBoardingScreen(),
-            AppRoutes.loginScreen: (context) => const LoginScreen(),
-            AppRoutes.homeScreen: (context) => const HomeScreen(),
+            AppRoutes.loginScreen: (context) =>  LoginScreen(),
+            AppRoutes.homeScreen: (context) =>  HomeScreen(),
             AppRoutes.searchScreen: (context) => const SearchPage(),
             AppRoutes.browseScreen: (context) => const MovieGenreBrowserScreen(),
             AppRoutes.profileScreen: (context) => const ProfilePage(),
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
             AppRoutes.resetPassword: (context) => const ResetPasswordScreen(),
+            AppRoutes.movieDetails : (context) => MovieDetailsScreen()
           },
           initialRoute: AppRoutes.onBoardingScreen,
           builder: (context, widget) {

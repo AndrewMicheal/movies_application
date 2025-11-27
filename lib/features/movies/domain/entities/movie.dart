@@ -3,11 +3,13 @@ class Movie {
   final String image;
   final double rating;
   final String genre;
+  final int id;
 
   const Movie({
     required this.title,
     required this.image,
     required this.rating,
     required this.genre,
+    required this.id
   });
 }

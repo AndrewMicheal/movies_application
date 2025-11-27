@@ -69,8 +69,14 @@
   "reset_password_min_length": "Password must be at least 6 characters",
   "oldPassword": "Old Password",
   "newPassword": "New Password",
-  "changePassword": "Change Password"
+  "changePassword": "Change Password",
 
-
-
+  "watch" : "Watch" ,
+  "screen_shots" : "Screen Shots",
+  "summary" : "Summary",
+  "no_summary_available_for_this_movie" : "No summary available for this movie",
+  "casts" : "Casts",
+  "name" : "Name" ,
+  "character" : "Character" ,
+  "genres" : "Genres"
 }
