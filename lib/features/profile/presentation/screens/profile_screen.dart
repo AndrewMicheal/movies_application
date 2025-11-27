@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/token_storage/token_storage.dart';
 import '../../../../core/assets_manager.dart';
+import '../../../movies/presentation/cubit/history_cubit.dart';
+import '../../../movies/presentation/cubit/history_state.dart';
+import '../../../movies/presentation/pages/history_page.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key, required String token});
+   ProfileScreen({super.key, required String token});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   final List<String> avatars = [
     AssetsManager.avatarImage1,
     AssetsManager.avatarImage2,
@@ -130,14 +134,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // Stats Row (Wish List & History)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildStatItem('12', 'Wish List'),
-                        _buildStatItem('10', 'History'),
-                      ],
+                    child: BlocBuilder<HistoryCubit, HistoryState>(
+                      builder: (context, state) {
+                        final historyCount = (state is HistoryLoaded)
+                            ? state.movies.length
+                            : 0;
+
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildStatItem('12', 'Wish List'),
+                            _buildStatItem('$historyCount', 'History'),
+                          ],
+                        );
+                      },
                     ),
                   ),
+
+
                   const SizedBox(height: 24),
 
                   // Action Buttons Row
@@ -234,10 +248,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             icon: Icons.folder_outlined,
                             label: 'History',
                             onPressed: () {
-                              // Navigate to History
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const HistoryPage()),
+                              );
                             },
                           ),
                         ),
+
+
                       ],
                     ),
                   ),
