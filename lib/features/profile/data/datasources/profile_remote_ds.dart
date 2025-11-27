@@ -43,15 +43,17 @@ class ProfileRemoteDataSource {
     required String token,
     required String name,
     required int avaterId,
+    required String phone
   }) async {
     try {
 
 
-      final response = await dio.put(
+      final response = await dio.patch(
         '/profile',
         data: {
           'name': name,
           'avaterId': avaterId,
+          'phone' : phone
         },
         options: Options(
           headers: {

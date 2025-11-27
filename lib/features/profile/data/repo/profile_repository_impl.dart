@@ -33,6 +33,7 @@ class ProfileRepositoryImpl implements ProfileRepo {
         token: token,
         name: name,
         avaterId: avaterId,
+        phone: phone
       );
       return Right(profile);
     } catch (e) {
