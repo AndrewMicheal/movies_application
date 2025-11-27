@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/core/app_routes.dart';
 import '../../../movies/presentation/cubit/history_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../../core/app_colors.dart';
@@ -43,8 +44,7 @@ class HistoryPage extends StatelessWidget {
                   final HistoryMovie m = list[index];
                   return GestureDetector(
                     onTap: () {
-                      // Navigate to movie details with its id
-                      Navigator.pushNamed(context, '/movieDetails', arguments: m.id);
+                      Navigator.pushNamed(context, AppRoutes.movieDetails,arguments: m.id);
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
