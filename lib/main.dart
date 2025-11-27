@@ -9,14 +9,15 @@ import 'package:movies/features/auth/presentation/screens/register.dart';
 import 'package:movies/features/movie_details/presentation/screens/movie_details_ui.dart';
 import 'package:movies/features/movies/domain/usecases/get_movies.dart';
 import 'package:movies/features/movies/presentation/pages/browse_page.dart';
-import 'package:movies/features/movies/presentation/pages/home_page.dart';
 import 'package:movies/features/movies/presentation/pages/main_navigation.dart';
 import 'package:movies/features/movies/presentation/pages/profile_page.dart';
 import 'package:movies/features/movies/presentation/pages/search_page.dart';
 import 'package:movies/features/on_boarding_screen/prestentation/screen/on_boarding_screen.dart';
+import 'package:movies/features/search_movies/presentation/movie_search_cubit/movie_search_cubit.dart';
 import 'package:movies/l10n/app_localizations.dart';
 import 'package:movies/core/app_routes.dart';
 
+import 'core/movie_search_di/movie_search_di.dart' as di;
 import 'features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'features/auth/data/data_sources/reset_password_remote_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
@@ -32,18 +33,21 @@ import 'features/movies/domain/repositories/movie_repository_impl.dart';
 import 'features/movies/presentation/cubit/movie_cubit.dart';
 import 'features/profile/data/datasources/profile_remote_ds.dart';
 import 'features/profile/data/repo/profile_repository_impl.dart';
-import 'features/profile/domain/repos/profile_repo.dart';
 import 'features/profile/domain/usecases/get_profile_use_case.dart';
 import 'features/profile/domain/usecases/update_profile_use_case.dart';
 import 'features/profile/presentation/cubit/profile_cubit.dart';
+import 'features/search_movies/data/movie_search_datasource/movie_search_remote_datasource.dart';
+import 'features/search_movies/data/movie_search_repositories/movie_search_repository_impl.dart';
+import 'features/search_movies/domain/movie_search_usecase/movie_search_usecase.dart';
 
-void main() {
+Future<void> main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
+  await di.initializeDependencies();
   final dio = Dio(
     BaseOptions(
       baseUrl: "https://route-movie-apis.vercel.app",
-      validateStatus: (status) => true, // Don't throw exceptions on any status
+      validateStatus: (status) => true,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -53,26 +57,44 @@ void main() {
     ),
   );
 
-  // Optional: Add logging to see what's being sent
-  dio.interceptors.add(LogInterceptor(
-    request: true,
-    requestBody: true,
-    responseBody: true,
-    error: true,
-  ));
-  final repo = ProfileRepositoryImpl(ProfileRemoteDataSource(
-    dio,
-  ));
+  dio.interceptors.add(
+    LogInterceptor(
+      request: true,
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ),
+  );
+  final repo = ProfileRepositoryImpl(ProfileRemoteDataSource(dio));
 
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<ProfileCubit>(create: (_) => ProfileCubit(repo, getProfileUseCase: GetProfileUseCase(repo), updateProfileUseCase: UpdateProfileUseCase(repo),),),
+        BlocProvider<ProfileCubit>(
+          create: (_) => ProfileCubit(
+            repo,
+            getProfileUseCase: GetProfileUseCase(repo),
+            updateProfileUseCase: UpdateProfileUseCase(repo),
+          ),
+        ),
         BlocProvider(
           create: (_) => MovieCubit(
             GetMovies(MovieRepositoryImpl(MovieRemoteDataSourceImpl(dio))),
           ),
         ),
+
+        BlocProvider(
+          create: (_) => MovieSearchCubit(
+            searchMoviesUseCase: SearchMoviesUseCase(
+              MovieSearchRepositoryImpl(
+                remoteDataSource: MovieSearchRemoteDataSourceImpl(dio: dio),
+              ),
+            ),
+          ),
+        ),
+
+
+
 
         BlocProvider(
           create: (_) => RegisterCubit(
@@ -94,6 +116,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -112,7 +136,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.loginScreen: (context) =>  LoginScreen(),
             AppRoutes.homeScreen: (context) =>  HomeScreen(),
             AppRoutes.searchScreen: (context) => const SearchPage(),
-            AppRoutes.browseScreen: (context) => const BrowsePage(),
+            AppRoutes.browseScreen: (context) => const MovieGenreBrowserScreen(),
             AppRoutes.profileScreen: (context) => const ProfilePage(),
             AppRoutes.registerScreen: (context) => const RegisterScreen(),
             AppRoutes.resetPassword: (context) => const ResetPasswordScreen(),
