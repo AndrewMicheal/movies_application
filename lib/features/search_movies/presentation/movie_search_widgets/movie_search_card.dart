@@ -95,13 +95,13 @@ class MovieSearchCard extends StatelessWidget {
                       movie.title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontSize: 14,
                         color: Colors.white,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         const Icon(Icons.calendar_today, size: 12, color: Colors.grey),
@@ -115,7 +115,7 @@ class MovieSearchCard extends StatelessWidget {
                         const SizedBox(width: 4),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Wrap(
                       spacing: 4,
                       runSpacing: 4,
@@ -130,7 +130,7 @@ class MovieSearchCard extends StatelessWidget {
                             genre,
                             style: const TextStyle(
                               color: Colors.grey,
-                              fontSize: 8,
+                              fontSize: 12,
                             ),
                           ),
                         );
