@@ -101,7 +101,7 @@ class MovieSearchCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         const Icon(Icons.calendar_today, size: 12, color: Colors.grey),
@@ -115,7 +115,7 @@ class MovieSearchCard extends StatelessWidget {
                         const SizedBox(width: 4),
                       ],
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 8),
                     Wrap(
                       spacing: 4,
                       runSpacing: 4,
