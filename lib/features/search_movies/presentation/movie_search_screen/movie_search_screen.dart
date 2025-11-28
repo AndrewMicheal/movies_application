@@ -1,11 +1,14 @@
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/core/app_colors.dart';
 import 'package:movies/features/search_movies/presentation/movie_search_cubit/movie_search_state.dart';
 
+import '../../../movie_details/presentation/screens/movie_details_ui.dart';
 import '../../../movies/presentation/cubit/movie_cubit.dart';
 import '../movie_search_cubit/movie_search_cubit.dart';
 import '../movie_search_widgets/movie_search_grid.dart';
+
 
 class MovieSearchScreen extends StatefulWidget {
   const MovieSearchScreen({Key? key}) : super(key: key);
