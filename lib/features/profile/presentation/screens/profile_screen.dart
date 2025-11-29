@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/token_storage/token_storage.dart';
 import '../../../../core/assets_manager.dart';
+import '../../../movies/presentation/cubit/favorites_cubit.dart';
+import '../../../movies/presentation/cubit/favorites_state.dart';
 import '../../../movies/presentation/cubit/history_cubit.dart';
 import '../../../movies/presentation/cubit/history_state.dart';
+import '../../../movies/presentation/pages/favorite_page.dart';
 import '../../../movies/presentation/pages/history_page.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-   ProfileScreen({super.key, required String token});
+  ProfileScreen({super.key, required String token});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   final List<String> avatars = [
     AssetsManager.avatarImage1,
     AssetsManager.avatarImage2,
@@ -34,9 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _loadProfile() async {
     try {
-
       final token = await TokenStorage.getToken();
-
 
       if (token == null || token.isEmpty) {
         if (mounted) {
@@ -56,7 +56,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         _token = token;
       });
-
 
       if (mounted) {
         context.read<ProfileCubit>().getProfile(token);
@@ -82,13 +81,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
             if (state is ProfileError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
             } else if (state is ProfileActionSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
             }
           },
           builder: (context, state) {
@@ -143,14 +142,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildStatItem('12', 'Wish List'),
+                            BlocListener<FavoritesCubit, FavoritesState>(
+                              listener: (context, state) {
+                                if (state is FavoritesActionSuccess) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.message)),
+                                  );
+                                } else if (state is FavoritesError) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.message)),
+                                  );
+                                }
+                              },
+                              child:
+                                  BlocBuilder<FavoritesCubit, FavoritesState>(
+                                    builder: (context, favState) {
+                                      final favoritesCount =
+                                          (favState is FavoritesLoaded)
+                                          ? favState.favorites.length
+                                          : 0;
+                                      return _buildStatItem(
+                                        '$favoritesCount',
+                                        'Wish List',
+                                      );
+                                    },
+                                  ),
+                            ),
+
                             _buildStatItem('$historyCount', 'History'),
                           ],
                         );
                       },
                     ),
                   ),
-
 
                   const SizedBox(height: 24),
 
@@ -183,7 +207,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ).then((_) {
                                 // Refresh profile data when coming back
                                 if (_token != null) {
-                                  context.read<ProfileCubit>().getProfile(_token!);
+                                  context.read<ProfileCubit>().getProfile(
+                                    _token!,
+                                  );
                                 }
                               });
                             },
@@ -201,7 +227,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 14,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -238,7 +267,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             icon: Icons.bookmark_border,
                             label: 'Watch List',
                             onPressed: () {
-                              // Navigate to Watch List
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const FavoritesPage(),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -250,13 +284,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (_) => const HistoryPage()),
+                                MaterialPageRoute(
+                                  builder: (_) => const HistoryPage(),
+                                ),
                               );
                             },
                           ),
                         ),
-
-
                       ],
                     ),
                   ),
@@ -308,13 +342,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 13,
-          ),
-        ),
+        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 13)),
       ],
     );
   }
@@ -329,9 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         foregroundColor: const Color(0xFFFFC107),
         side: const BorderSide(color: Color(0xFFFFC107), width: 1.5),
         padding: const EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: onPressed,
       child: Row(
@@ -341,10 +367,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(width: 8),
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
           ),
         ],
       ),

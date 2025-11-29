@@ -8,9 +8,11 @@ import 'package:movies/core/di/di.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_details_cubit.dart';
 import 'package:movies/features/movie_details/presentation/cubit/movie_details_state.dart';
 import 'package:movies/l10n/app_localizations.dart';
-
 import 'package:movies/features/movies/domain/entities/history_movie.dart';
 import 'package:movies/features/movies/presentation/cubit/history_cubit.dart';
+import 'package:movies/features/movies/domain/entities/favorite_movie.dart';
+import 'package:movies/features/movies/presentation/cubit/favorites_cubit.dart';
+import 'package:movies/features/movies/presentation/cubit/favorites_state.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   const MovieDetailsScreen({super.key,});
@@ -22,7 +24,6 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   late MovieDetailsCubit movieDetailsCubit;
   bool _isLoaded = false;
-
   bool _historyAdded = false;
 
   @override
@@ -36,7 +37,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     super.didChangeDependencies();
     if (!_isLoaded) {
       final movieId = ModalRoute.of(context)!.settings.arguments as int;
-      print("Movie Details ID: $movieId");
+      // debug
+      // print("Movie Details ID: $movieId");
       movieDetailsCubit.getMovieDetails(movieId);
       _isLoaded = true;
     }
@@ -46,6 +48,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   void dispose() {
     movieDetailsCubit.close();
     super.dispose();
+  }
+
+  bool _hasFavoritesProvider(BuildContext context) {
+    return context.findAncestorWidgetOfExactType<BlocProvider<FavoritesCubit>>() != null;
   }
 
   @override
@@ -60,9 +66,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             return const Scaffold(
               backgroundColor: AppColors.nearBlack,
               body: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: AppColors.nearBlack,
-                ),
+                child: CircularProgressIndicator(),
               ),
             );
           }
@@ -85,7 +89,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               WidgetsBinding.instance.addPostFrameCallback((_) async {
                 try {
                   final historyCubit = context.read<HistoryCubit>();
-
                   final historyMovie = HistoryMovie(
                     id: movie.id ?? 0,
                     title: movie.title ?? '',
@@ -93,16 +96,81 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     rating: movie.rating != null ? (movie.rating as num).toDouble() : null,
                     year: movie.year,
                   );
-
                   await historyCubit.add(historyMovie);
                 } catch (e) {
                   debugPrint("Could not add to history: $e");
                 }
               });
-
               _historyAdded = true;
             }
 
+            Widget buildFavoriteButton() {
+              final hasFav = _hasFavoritesProvider(context);
+              if (!hasFav) {
+                return Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.bookmark_outline, color: Colors.white),
+                );
+              }
+              return BlocBuilder<FavoritesCubit, FavoritesState>(
+                builder: (context, favState) {
+                  final favCubit = context.read<FavoritesCubit>();
+                  final movieIdStr = movie.id?.toString() ?? '';
+                  final isFav = favCubit.isFavorite(movieIdStr);
+
+                  return InkWell(
+                    onTap: () async {
+                      try {
+                        final favMovie = FavoriteMovie(
+                          movieId: movieIdStr,
+                          name: movie.title ?? '',
+                          rating: movie.rating != null ? (movie.rating as num).toDouble() : null,
+                          imageURL: movie.coverImage ?? '',
+                          year: movie.year?.toString(),
+                        );
+
+                        if (isFav) {
+                          await favCubit.remove(movieIdStr);
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Removed from Watch List")),
+                            );
+                          }
+                        } else {
+                          await favCubit.add(favMovie);
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Added to Watch List")),
+                            );
+                          }
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Favorite action failed: $e")),
+                          );
+                        }
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        isFav ? Icons.bookmark : Icons.bookmark_outline,
+                        color: isFav ? Colors.yellow : Colors.white,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
 
             return Scaffold(
               backgroundColor: AppColors.nearBlack,
@@ -129,6 +197,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               ),
                             ),
                           ),
+
+                          // overlay
                           Container(
                             width: double.infinity,
                             height: 600.h,
@@ -137,6 +207,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               color: Colors.black.withOpacity(0.4),
                             ),
                           ),
+
                           Positioned(
                             bottom: 16.h,
                             left: 16.w,
@@ -173,13 +244,19 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               ),
                             ),
                           ),
+
+                          Positioned(
+                            top: 16.h,
+                            right: 16.w,
+                            child: buildFavoriteButton(),
+                          ),
                         ],
                       ),
+
                       SizedBox(height: 16.h),
                       SizedBox(height: 4.h),
                       Center(
                         child: Text(
-                          textAlign: TextAlign.center,
                           (movie.year?.toString() ?? ""),
                           style: const TextStyle(
                             color: Colors.grey,
@@ -189,8 +266,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ),
 
                       SizedBox(height: 20.h),
-
-                      // Watch Button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -204,7 +279,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           onPressed: () {},
                           child: Text(
                             AppLocalizations.of(context)!.watch,
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                            style: const TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
                       ),
@@ -212,10 +287,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       SizedBox(height: 20.h),
 
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 8.h,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -224,16 +296,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 borderRadius: BorderRadius.circular(16.r),
                                 color: AppColors.darkGray,
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 15.w,
-                                vertical: 10.h,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.favorite,
-                                    color: AppColors.darkYellow,
-                                  ),
+                                  const Icon(Icons.favorite, color: AppColors.darkYellow),
                                   SizedBox(width: 6.w),
                                   Text("15", style: AppStyles.bold24RobtoWhite),
                                 ],
@@ -244,21 +310,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 borderRadius: BorderRadius.circular(16.r),
                                 color: AppColors.darkGray,
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 15.w,
-                                vertical: 10.h,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.access_time,
-                                    color: AppColors.darkYellow,
-                                  ),
+                                  const Icon(Icons.access_time, color: AppColors.darkYellow),
                                   SizedBox(width: 6.w),
-                                  Text(
-                                    "${movie.runtime ?? ''}",
-                                    style: AppStyles.bold24RobtoWhite,
-                                  ),
+                                  Text("${movie.runtime ?? ''}", style: AppStyles.bold24RobtoWhite),
                                 ],
                               ),
                             ),
@@ -267,37 +324,25 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                 borderRadius: BorderRadius.circular(16.r),
                                 color: AppColors.darkGray,
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 15.w,
-                                vertical: 10.h,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
                               child: Row(
                                 children: [
-                                  Icon(Icons.star, color: AppColors.darkYellow),
+                                  const Icon(Icons.star, color: AppColors.darkYellow),
                                   SizedBox(width: 6.w),
-                                  Text(
-                                    "${movie.rating ?? ''}",
-                                    style: AppStyles.bold24RobtoWhite,
-                                  ),
+                                  Text("${movie.rating ?? ''}", style: AppStyles.bold24RobtoWhite),
                                 ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 8.h,
-                        ),
 
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              AppLocalizations.of(context)!.screen_shots,
-                              style: AppStyles.bold24RobtoWhite,
-                            ),
+                            Text(AppLocalizations.of(context)!.screen_shots, style: AppStyles.bold24RobtoWhite),
                             SizedBox(height: 5.h),
 
                             Column(
@@ -311,8 +356,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                       imageUrl: movieItem,
                                       width: double.infinity,
                                       fit: BoxFit.cover,
-                                      errorWidget: (context, url, error) =>
-                                          Container(height: 120.h, color: Colors.grey.shade900),
+                                      errorWidget: (context, url, error) => Container(height: 120.h, color: Colors.grey.shade900),
                                     ),
                                   ),
                                 ),
@@ -324,11 +368,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             Text(AppLocalizations.of(context)!.summary, style: AppStyles.bold24RobotoWhite),
                             SizedBox(height: 10.h),
                             Text(
-                              (movie.description != null && movie.description!.isNotEmpty)
-                                  ? movie.description!
-                                  : AppLocalizations.of(context)!.no_summary_available_for_this_movie,
+                              (movie.description != null && movie.description!.isNotEmpty) ? movie.description! : AppLocalizations.of(context)!.no_summary_available_for_this_movie,
                               style: AppStyles.regular16RobotoWhite,
                             ),
+
                             if (movie.cast != null && movie.cast!.isNotEmpty) ...[
                               SizedBox(height: 10.h),
                               Text(AppLocalizations.of(context)!.casts, style: AppStyles.bold24RobotoWhite),
@@ -338,40 +381,22 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                       (movieItem) => Padding(
                                     padding: EdgeInsets.only(bottom: 10.h),
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10.w,
-                                        vertical: 10.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16.r),
-                                        color: AppColors.darkGray,
-                                      ),
+                                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r), color: AppColors.darkGray),
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           movieItem.image != null && movieItem.image!.isNotEmpty
-                                              ? CachedNetworkImage(
-                                            imageUrl: movieItem.image!,
-                                            width: 60.w,
-                                            height: 60.h,
-                                            fit: BoxFit.cover,
-                                          )
+                                              ? CachedNetworkImage(imageUrl: movieItem.image!, width: 60.w, height: 60.h, fit: BoxFit.cover)
                                               : SizedBox(width: 60.w, height: 60.h),
-
                                           SizedBox(width: 10.w),
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.name} : ${movieItem.name}",
-                                                  style: AppStyles.regular16RobotoWhite,
-                                                ),
+                                                Text("${AppLocalizations.of(context)!.name} : ${movieItem.name}", style: AppStyles.regular16RobotoWhite),
                                                 SizedBox(height: 5.h),
-                                                Text(
-                                                  "${AppLocalizations.of(context)!.character}: ${movieItem.characterName}",
-                                                  style: AppStyles.regular16RobotoWhite,
-                                                ),
+                                                Text("${AppLocalizations.of(context)!.character}: ${movieItem.characterName}", style: AppStyles.regular16RobotoWhite),
                                               ],
                                             ),
                                           ),
@@ -392,18 +417,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                     (movieItem) => Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10.w,
-                                      vertical: 10.h,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.r),
-                                      color: AppColors.darkGray,
-                                    ),
-                                    child: Text(
-                                      movieItem,
-                                      style: AppStyles.regular16RobotoWhite,
-                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r), color: AppColors.darkGray),
+                                    child: Text(movieItem, style: AppStyles.regular16RobotoWhite),
                                   ),
                                 ),
                               )
