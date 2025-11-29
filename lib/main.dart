@@ -161,7 +161,7 @@ class MyApp extends StatelessWidget {
             AppRoutes.resetPassword: (context) => const ResetPasswordScreen(),
             AppRoutes.movieDetails: (context) => const MovieDetailsScreen(),
           },
-          initialRoute: AppRoutes.loginScreen,
+          initialRoute: AppRoutes.onBoardingScreen,
           builder: (context, widget) {
             return MediaQuery(
               data: MediaQuery.of(

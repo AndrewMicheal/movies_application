@@ -78,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           Navigator.pushReplacementNamed(
             context,
-            AppRoutes.homeScreen,
+            AppRoutes.loginScreen,
           );
         }
 
